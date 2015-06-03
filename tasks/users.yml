@@ -1,0 +1,31 @@
+---
+- name: create admins group (currently only for the deploy user)
+  sudo: yes
+  group: name=admins system=yes state=present
+
+- name: make sure we can sudo as admin group
+  sudo: yes
+  lineinfile: dest=/etc/sudoers state=present regexp='^%admin' line='%admin ALL=(ALL) ALL'
+
+- name: add the deploy user with a bash shell
+  sudo: yes
+  user: name={{ user }} shell=/bin/bash append=yes group=admins
+
+- name: make sure we can sudo as deploy user without password
+  sudo: yes
+  lineinfile: "dest=/etc/sudoers state=present line='{{ user }} ALL=(ALL) NOPASSWD: ALL'"
+
+- name: set up authorized_keys for the deploy user
+  sudo: yes
+  authorized_key: user={{ user }}
+                  key="{{ item }}"
+  with_file:
+    - public_keys/jochen
+
+- name: set up authorized_keys for the vagrant user
+  sudo: yes
+  authorized_key: user=vagrant
+                  key="{{ item }}"
+  with_file:
+    - public_keys/jochen
+  when: vagrant
