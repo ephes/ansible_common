@@ -27,5 +27,5 @@
   authorized_key: user=vagrant
                   key="{{ item }}"
   with_file:
-    - public_keys/jochen
+    - public_keys/pubkeys
   when: vagrant
