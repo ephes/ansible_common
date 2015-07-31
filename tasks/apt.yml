@@ -17,3 +17,4 @@
     - python-pip
     - apt-transport-https
     - libmemcached-dev
+    - graphviz
