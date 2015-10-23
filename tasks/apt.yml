@@ -18,3 +18,4 @@
     - apt-transport-https
     - libmemcached-dev
     - graphviz
+    - libjpeg-dev
