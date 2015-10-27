@@ -19,3 +19,7 @@
     - libmemcached-dev
     - graphviz
     - libjpeg-dev
+    - libblas-dev
+    - liblapack-dev
+    - libatlas-base-dev
+    - gfortran
